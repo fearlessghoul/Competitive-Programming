@@ -7,8 +7,7 @@ using namespace std;
 int isSafe(int x, int y, int sol[N][N]) {
     return (x >= 0 && x < N && y >= 0 && y < N && sol[x][y] == -1);
 }
-void printSolution(int sol[N][N])
-{
+void printSolution(int sol[N][N]){
     for (int x = 0; x < N; x++) {
         for (int y = 0; y < N; y++)
             cout << " " << setw(2) << sol[x][y] << " ";
@@ -16,8 +15,7 @@ void printSolution(int sol[N][N])
     }
 }
 int solveKTUtil(int x, int y, int movei, int sol[N][N],
-                int xMove[8], int yMove[8])
-{
+                int xMove[8], int yMove[8]){
     int k, next_x, next_y;
     if (movei == N * N)
         return 1;
@@ -34,8 +32,7 @@ int solveKTUtil(int x, int y, int movei, int sol[N][N],
     }
     return 0;
 }
-int solveKT()
-{
+int solveKT(){
     int sol[N][N];
     for (int x = 0; x < N; x++)
         for (int y = 0; y < N; y++)
@@ -50,8 +47,7 @@ int solveKT()
         printSolution(sol);
     return 1;
 }
-int main()
-{
+int main(){
     solveKT();
     return 0;
 }

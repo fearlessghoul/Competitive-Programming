@@ -1,9 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 bool isOperator(char c){
-    return (c == '+' || c == '-' || c == '*' || c == '/');
+    return (c == '+' || c == '-' || c == '*' || c == '/' || c=='^');
 }
 
+int pow(int a,int b){
+    int result=1;
+    while(b){
+        if(b&1)result*=a;
+        a*=a;
+        b>>=1;
+    }
+    return result;
+}
 int performOperation(char operation, int a, int b){
     switch (operation){
     case '+':
@@ -14,6 +23,8 @@ int performOperation(char operation, int a, int b){
         return a * b;
     case '/':
         return a / b;
+    case '^':   
+        return pow(a,b);
     default:
         return 0;
     }
@@ -45,7 +56,7 @@ int evalPostfix(const string &expression){
 }
 
 int main(){
-    string expr = "5 3 + 8 * 6";
+    string expr = "2 ^ 3 ^ 4";
     try{
         cout << "Evaluated: " << evalPostfix(expr) << endl;
     }

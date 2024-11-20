@@ -3,8 +3,7 @@
 
 static int delta[LOG_N];
 
-void make_delta(int N)
-{
+void make_delta(int N){
     int power = 1;
     int i = 0;
 
@@ -15,8 +14,7 @@ void make_delta(int N)
     } while (delta[i++] != 0);
 }
 
-int unisearch(int *a, int key)
-{
+int unisearch(int *a, int key){
     int i = delta[0] - 1;  /* midpoint of array */
     int d = 0;
 
@@ -38,8 +36,7 @@ int unisearch(int *a, int key)
 /* Example of use: */
 #define N 10
 
-int main(void)
-{
+int main(void){
     int a[N] = {1, 3, 5, 6, 7, 9, 14, 15, 17, 19};
 
     make_delta(N);

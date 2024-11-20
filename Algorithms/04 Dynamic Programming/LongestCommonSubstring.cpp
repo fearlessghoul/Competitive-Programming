@@ -1,40 +1,46 @@
 #include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
-void swapped(int &a, int &b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-int max(int &a, int &b)
-{
-    return a > b ? a : b;
-}
-int main()
-{
-    char A[] = {'A', 'B', 'C', 'B', 'D', 'A', 'B'};
-    char B[] = {'B', 'D', 'C', 'A', 'B', 'A'};
-    int dp[8][7] = {0}, k = 0,max=0;
-    for (int i = 1; i < 8; i++)
-    {
-        for (int j = 1; j < 7; j++)
-        {
-            if (A[i - 1] == B[j - 1])
-            {
+pair<int, string> longestCommonSubstring(string X, string Y) {
+    int m = X.size();
+    int n = Y.size();
+
+    // DP table to store lengths of common substrings
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+
+    int maxLength = 0; // Maximum length of common substring
+    int endIndex = 0;  // Ending index of the common substring in X
+
+    for (int i = 1; i <= m; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (X[i - 1] == Y[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1] + 1;
-                if(dp[i][j]>max){
-                    max=dp[i][j];
-                    k=i-1;
+                if (dp[i][j] > maxLength) {
+                    maxLength = dp[i][j];
+                    endIndex = i; // Update the ending index of the substring in X
                 }
+            } else {
+                dp[i][j] = 0; // Reset if characters don't match
             }
-            cout<<dp[i][j]<<"endl";
         }
     }
-    for (int i = k-(max-1); i <= k; i++)
-    {   
-        cout<<A[i]<<" ";
-    }
-    
+
+    // Extract the longest common substring
+    string lcs = X.substr(endIndex - maxLength, maxLength);
+
+    return {maxLength, lcs};
+}
+
+int main() {
+    string X = "ABABC";
+    string Y = "BABCAC";
+
+    auto result = longestCommonSubstring(X, Y);
+
+    cout << "Length of Longest Common Substring: " << result.first << endl;
+    cout << "Longest Common Substring: " << result.second << endl;
+
     return 0;
 }

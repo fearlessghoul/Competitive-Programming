@@ -2,16 +2,13 @@
 #include <vector>
 #include<algorithm>
 // with n! complexity
-void generateCombinations(const std::vector<int> &arr, std::vector<int> &combination, int start)
-{
-    if (!combination.empty())
-    {
+void generateCombinations(const std::vector<int> &arr, std::vector<int> &combination, int start){
+    if (!combination.empty()){
         for (int i : combination)
             std::cout << i << " ";
         std::cout << std::endl;
     }
-    for (int i = start; i < arr.size(); ++i)
-    {
+    for (int i = start; i < arr.size(); ++i){
         if (i > start && arr[i] == arr[i - 1]) {
             // Skip duplicates
             continue;
@@ -23,15 +20,11 @@ void generateCombinations(const std::vector<int> &arr, std::vector<int> &combina
 }
 
 // with 2^n complexity
-void generateCombinations(const std::vector<int> &arr, std::vector<int> &combination, int start)
-{
+void generateCombinations(const std::vector<int> &arr, std::vector<int> &combination, int start){
 
-    if (start == arr.size())
-    {
-        if (!combination.empty())
-        {
-            for (int i : combination)
-            {
+    if (start == arr.size()){
+        if (!combination.empty()){
+            for (int i : combination){
                 std::cout << i << " ";
             }
             std::cout << std::endl;
@@ -43,8 +36,7 @@ void generateCombinations(const std::vector<int> &arr, std::vector<int> &combina
     combination.pop_back();
     generateCombinations(arr, combination, start + 1);
 }
-int main()
-{
+int main(){
     std::vector<int> arr = {10,1,2,7,6,1,5};
     std::vector<int> combination;
     sort(arr.begin(), arr.end());

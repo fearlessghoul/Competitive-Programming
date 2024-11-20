@@ -1,14 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
-class Solution
-{
+class Solution{
 public:
-    bool inbound(int i, int j, int m, int n)
-    {
+    bool inbound(int i, int j, int m, int n){
         return (i >= 0 && i < m) && (j >= 0 && j < n);
     }
-    void mark(int i, int j, int m, int n, int **mat, int val)
-    {
+    void mark(int i, int j, int m, int n, int **mat, int val){
         mat[i][j] += val;
         if (inbound(i - 1, j + 2, m, n))
             mat[i - 1][j + 2] += val;
@@ -27,23 +24,19 @@ public:
         if (inbound(i - 2, j + 1, m, n))
             mat[i - 2][j + 1] += val;
     }
-    void printIT(vector<string> &result)
-    {
-        for (string &res : result)
-        {
+    void printIT(vector<string> &result){
+        for (string &res : result){
             cout << res << endl;
         }
     }
-    void solve(vector<vector<string>> &result, vector<string> &sol, int i, int j, int m, int n, int **matrix, int knights)
-    {
+    void solve(vector<vector<string>> &result, vector<string> &sol, int i, int j, int m, int n, int **matrix, int knights){
         if (knights == 0 || !inbound(i, j, m, n)) {
             result.push_back(sol);
             return;
         }
         for (int k = i; k < m; k++)
             for (int l = j; l < n; l++){
-                if (!matrix[k][l])
-                {
+                if (!matrix[k][l]){
                     mark(k, l, m, n, matrix, 1);
                     cout<<knights<<":"<<k<<" "<<l<<endl;
                     sol[k][l] = 'K';
@@ -54,8 +47,7 @@ public:
                 j=0;
             }
     };
-    vector<vector<string>> solveNQueens(int m, int n, int k)
-    {
+    vector<vector<string>> solveNQueens(int m, int n, int k){
         if (n == 1)
             return vector(1, vector(m, string(1, 'K')));
         if (m == 1)
@@ -69,13 +61,11 @@ public:
         return result;
     }
 };
-int main()
-{
+int main(){
     Solution a;
     int m = 3, n = 3, k = 5;
     vector<vector<string>> result = a.solveNQueens(m, n, k);
-    for (auto &res : result)
-    {
+    for (auto &res : result){
         a.printIT(res);
         cout << endl;
     }
