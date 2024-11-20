@@ -12,9 +12,11 @@ private:
     Node* head;
 public:
     LinkedList() : head(nullptr) {}
-        LinkedList(int *arr, int size){
+    
+    LinkedList(int *arr, int size) {
         this->fromArray(arr, size);
     }
+
     // From array
     void fromArray(int *arr, int size){
         if (head == nullptr){
@@ -24,8 +26,7 @@ public:
                 for (int i = 1; i < size; i++){
                     temp = temp->next = new Node(arr[i]);
                 }
-            }
-            else{
+            }else{
                 cout << "Invalid size!" << endl;
             }
         }

@@ -7,15 +7,12 @@ private:
     int front;
     int rear;
     int capacity;
-    int count;
-
 public:
     Queue(int size) {
         arr = new int[size];
         capacity = size;
-        front = 0;
+        front = -1;
         rear = -1;
-        count = 0;
     }
 
     ~Queue() {
@@ -28,9 +25,9 @@ public:
             cout << "Queue overflow!" << endl;
             return;
         }
+        if(isEmpty()) front=0;
         rear = (rear + 1) % capacity;
         arr[rear] = value;
-        count++;
     }
 
     // Remove an element from the front of the queue
@@ -39,8 +36,11 @@ public:
             cout << "Queue underflow!" << endl;
             return;
         }
+        if(front==rear){
+            front=rear=-1;
+            return;
+        }
         front = (front + 1) % capacity;
-        count--;
     }
 
     // Get the front element
@@ -63,12 +63,12 @@ public:
 
     // Check if the queue is full
     bool isFull() const {
-        return count == capacity;
+        return (front == 0 && ((rear+1) == capacity)) || ((rear+1) % capacity == front);
     }
 
     // Check if the queue is empty
     bool isEmpty() const {
-        return count == 0;
+        return front==-1;
     }
 };
 
@@ -79,6 +79,7 @@ int main() {
     queue.enqueue(20);
     queue.enqueue(30);
     queue.enqueue(40);
+    queue.enqueue(45);
 
     cout << "Front element is: " << queue.peek() << endl;
     cout << "Rear element is: " << queue.rearElement() << endl;

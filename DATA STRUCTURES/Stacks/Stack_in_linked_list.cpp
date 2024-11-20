@@ -4,6 +4,7 @@ struct Node{
     int data;
     Node *next;
     Node(int val) : data(val), next(nullptr) {}
+    Node(int val,Node* node) : data(val), next(node) {}
 };
 class Stack{
 private:
@@ -33,9 +34,7 @@ public:
             head = new Node(value);
         }
         else{
-            Node *temp = new Node(value);
-            temp->next = head;
-            head = temp;
+            head = new Node(value,head);
         }
         size++;
     }

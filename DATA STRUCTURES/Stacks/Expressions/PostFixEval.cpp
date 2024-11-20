@@ -56,7 +56,7 @@ int evalPostfix(const string &expression){
 }
 
 int main(){
-    string expr = "2 ^ 3 ^ 4";
+    string expr = "2 3 2 ^ ^";
     try{
         cout << "Evaluated: " << evalPostfix(expr) << endl;
     }

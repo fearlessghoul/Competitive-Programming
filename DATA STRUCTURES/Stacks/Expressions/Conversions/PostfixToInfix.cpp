@@ -2,7 +2,7 @@
 using namespace std;
 
 bool isOperator(char c){
-    return (c == '+' || c == '-' || c == '*' || c == '/');
+    return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
 }
 
 string postfixToInfix(const string &postfix){

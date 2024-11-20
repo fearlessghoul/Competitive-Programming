@@ -4,8 +4,8 @@ bool isOperator(char c){
     return (c == '+' || c == '^'|| c == '-' || c == '*' || c == '/');
 }
 
-bool isPrefix(const std::string &expression){
-    std::stack<char> s;
+bool isPrefix(const string &expression){
+    stack<char> s;
     int operandCount = 0, operatorCount = 0;
     for (auto token = expression.rbegin(); token != expression.rend(); ++token){
         if (isOperator(*token)){
