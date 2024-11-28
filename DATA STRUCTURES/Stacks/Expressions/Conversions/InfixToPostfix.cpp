@@ -2,11 +2,17 @@
 using namespace std;
 int precedence(char op){
     if (op == '^')
-        return 3;
+        return 6;
+    if (op == '*' || op == '/' || op == '%')
+        return 5;
     if (op == '+' || op == '-')
-        return 1;
-    if (op == '*' || op == '/')
+        return 4;
+    if (op == '&') // AND
+        return 3;
+    if (op == 'x') // xor
         return 2;
+    if (op == '|') // or
+        return 1;
     return 0;
 }
 int associativity(char op){
