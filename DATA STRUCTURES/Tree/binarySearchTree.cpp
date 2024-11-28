@@ -32,17 +32,14 @@ TreeNode* insertNode(TreeNode* root, int val) {
     return root;
 }
 TreeNode *deleteNode(TreeNode *root, int key){
-    if (root == nullptr){
+    if (root == nullptr)
         return root; // Base case: the tree is empty
-    }
 
     // Recursively traverse the tree to find the node to delete
-    if (key < root->value){
+    if (key < root->value)
         root->left = deleteNode(root->left, key);
-    }
-    else if (key > root->value){
+    else if (key > root->value)
         root->right = deleteNode(root->right, key);
-    }
     else{
         // Node found
 

@@ -19,46 +19,6 @@ public:
         edges.emplace_back(weight, u, v);
     }
 
-    // Prim's Algorithm for MST
-    void primMST() {
-        vector<bool> visited(V, false);
-        vector<vector<pair<int, int>>> adj(V); // Adjacency list for Prim's
-
-        // Convert edge list to adjacency list
-        for (auto &[weight, u, v] : edges) {
-            adj[u].emplace_back(v, weight);
-            adj[v].emplace_back(u, weight);
-        }
-
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> minHeap;
-        minHeap.emplace(0, 0); // (weight, vertex)
-        int totalWeight = 0;
-        vector<pair<int, int>> mst; // (u, v)
-
-        while (!minHeap.empty()) {
-            auto [weight, u] = minHeap.top();
-            minHeap.pop();
-
-            if (visited[u]) continue;
-            visited[u] = true;
-            totalWeight += weight;
-
-            // Add edges to the MST
-            for (auto &[v, w] : adj[u]) {
-                if (!visited[v]) {
-                    minHeap.emplace(w, v);
-                    mst.emplace_back(u, v);
-                }
-            }
-        }
-
-        cout << "Prim's MST Edges:\n";
-        for (auto &[u, v] : mst) {
-            cout << u << " - " << v << '\n';
-        }
-        cout << "Total Weight: " << totalWeight << '\n';
-    }
-
     // Kruskal's Algorithm for MST
     void kruskalMST() {
         sort(edges.begin(), edges.end()); // Sort edges by weight
@@ -116,9 +76,6 @@ int main() {
     g.addEdge(0, 3, 5);
     g.addEdge(1, 3, 15);
     g.addEdge(2, 3, 4);
-
-    cout << "Using Prim's Algorithm:\n";
-    g.primMST();
 
     cout << "\nUsing Kruskal's Algorithm:\n";
     g.kruskalMST();
