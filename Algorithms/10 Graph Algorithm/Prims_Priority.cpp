@@ -18,37 +18,34 @@ void addEdge(vector<vector<pii>>& graph, int u, int v, int weight) {
 void primMST(vector<vector<pii>>& graph, int V) {
     priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-heap based on edge weight
     vector<bool> visited(V, false);                    // Track visited vertices
-    vector<int> parent(V, -1);                         // Stores parent of each vertex
-    vector<int> key(V, INT_MAX);                       // Key values to pick minimum edge
+    vector<int> parent(V, -1);                         // Store the parent of each vertex
 
-    int mstCost = 0;                                   // Cost of MST
+    int mstCost = 0;                                   // Cost of the MST
 
     // Start from vertex 0
-    pq.emplace(0, 0);
-    key[0] = 0;
+    pq.emplace(0, 0);  // (weight, vertex)
 
     while (!pq.empty()) {
-        int u = pq.top().second;
+        auto [weight,u] = pq.top();
         pq.pop();
 
         // Skip if already visited
-        if (visited[u])
-            continue;
+        if (visited[u]) continue;
 
+        // Mark the current vertex and add the edge weight
         visited[u] = true;
-        mstCost += key[u];
+        mstCost += weight;
 
         // Print the edge included in the MST (skip the first node)
         if (parent[u] != -1) {
-            cout << "Edge: " << parent[u] << " - " << u << " with weight: " << key[u] << endl;
+            cout << "Edge: " << parent[u] << " - " << u << " with weight: " << weight << endl;
         }
 
         // Explore adjacent vertices
         for (auto [adjWeight, v] : graph[u]) {
-            if (!visited[v] && adjWeight < key[v]) {
-                key[v] = adjWeight;
-                pq.emplace(key[v], v);
-                parent[v] = u; // Update parent
+            if (!visited[v]) {
+                pq.emplace(adjWeight, v);
+                parent[v] = u;  // Update parent
             }
         }
     }

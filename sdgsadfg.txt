@@ -1,5 +1,0 @@
-Dinic's algorithm: is a strongly polynomial algorithm for computing the maximum flow in a flow network.
-Edmonds–Karp algorithm: implementation of Ford–Fulkerson
-Ford–Fulkerson algorithm: computes the maximum flow in a graph
-Karger's algorithm: a Monte Carlo method to compute the minimum cut of a connected graph
-Push–relabel algorithm: computes a maximum flow in a graph

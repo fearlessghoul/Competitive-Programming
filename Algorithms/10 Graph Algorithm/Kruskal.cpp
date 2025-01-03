@@ -33,30 +33,29 @@ public:
             return parent[u];
         };
 
-        function<void(int,int)> unionSets = [&](int u, int v) {
+        function<bool(int,int)> unionSets = [&](int u, int v) {
             int rootU = find(u);
             int rootV = find(v);
 
-            if (rootU != rootV) {
-                if (rank[rootU] > rank[rootV]) {
-                    parent[rootV] = rootU;
-                } else if (rank[rootU] < rank[rootV]) {
-                    parent[rootU] = rootV;
-                } else {
-                    parent[rootV] = rootU;
-                    rank[rootU]++;
-                }
+            if (rootU == rootV) return false;
+            if (rank[rootU] > rank[rootV]) {
+                parent[rootV] = rootU;
+            } else if (rank[rootU] < rank[rootV]) {
+                parent[rootU] = rootV;
+            } else {
+                parent[rootV] = rootU;
+                rank[rootU]++;
             }
+            return true;
         };
 
         int totalWeight = 0;
         vector<tuple<int, int, int>> mst; // (weight, u, v)
 
         for (auto &[weight, u, v] : edges) {
-            if (find(u) != find(v)) {
+            if (unionSets(u, v)) {
                 mst.emplace_back(weight, u, v);
                 totalWeight += weight;
-                unionSets(u, v);
             }
         }
 

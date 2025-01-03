@@ -127,7 +127,7 @@ public:
     void DFS(int start) {
         vector<bool> visited(V, false);
         cout << "DFS traversal starting from vertex " << start << ": ";
-        DFSUtil_Iterative(start, visited);
+        DFSUtil(start, visited);
         cout << endl;
     }
 
