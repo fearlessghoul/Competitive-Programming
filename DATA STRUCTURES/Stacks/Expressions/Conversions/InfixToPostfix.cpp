@@ -58,7 +58,7 @@ string infixToPostfix(const string &expression){
 }
 
 int main(){
-    string exp = "A/B+C*D+A^B";
+    string exp = "(1+(4+5+2)-3)+(6+8)";
     try{
         cout << "Postfix: " << infixToPostfix(exp) << endl;
     }
