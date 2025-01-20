@@ -11,7 +11,7 @@ private:
 
     // A utility function to combine two nodes
     int combine(int left, int right) {
-        return max(left, right); // Replaceable for other operations like sum or min
+        return left+right; // Replaceable for other operations like sum or min
     }
 
 public:
@@ -77,11 +77,11 @@ public:
 
 // Driver code
 int main() {
-    vector<int> arr = {2, 6, 10, 4, 7, 28, 9, 11, 6, 33};
+    vector<int> arr = {1,3,5};
     SegmentTree segTree(arr);
 
     // Example queries and updates
-    cout << "Maximum in range [1, 5): " << segTree.query(0,5) << endl;
+    cout << "Maximum in range [1, 5): " << segTree.query(0,2) << endl;
 
     segTree.update(5, 32); // Update index 5 to 32
     cout << "After update, maximum in range [2, 8): " << segTree.query(2, 8) << endl;

@@ -1,22 +1,23 @@
 #include <iostream>
-#include <vector>
+#include<vector>
 using namespace std;
 
 class UnionFind {
 public:
-    vector<int> parent, rank;
-
-    UnionFind(int n) {
-        parent.resize(n);
-        rank.resize(n, 0);
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;  // Each node is its own parent initially
-        }
+    int*parent,*rank;
+    int size;
+    UnionFind(int n) :size(n){
+        parent=new int[n];
+        rank=new int[n]{};
+        for (int i = 0; i < n; i++) parent[i] = i;
     }
-
+    ~UnionFind(){
+        delete parent;
+        delete rank;
+    }
     int find(int x) {
         if (parent[x] != x) {
-            parent[x] = find(parent[x]);  // Path compression
+            parent[x] = find(parent[x]);
         }
         return parent[x];
     }
@@ -26,7 +27,7 @@ public:
         int rootY = find(y);
 
         if (rootX == rootY) {
-            return false;  // Cycle detected
+            return false;
         }
 
         // Union by rank

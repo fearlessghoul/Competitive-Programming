@@ -111,7 +111,7 @@ int main(){
     //      / \
     //     3   8
     //    / \   \
-    //   2   4   9
+    //   2   4   10
 
     TreeNode *root = new TreeNode(5);
     root->left = new TreeNode(3);
@@ -119,7 +119,6 @@ int main(){
     root->left->left = new TreeNode(2);
     root->left->right = new TreeNode(4);
     root->right->right = new TreeNode(10);
-    root->right->right->left=new TreeNode(9);
 
     // Perform inorder traversal before deletion
     cout << "Inorder traversal before deletion: ";
