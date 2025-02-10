@@ -91,12 +91,9 @@ private:
     }
 
     void transplant(Node *u, Node *v) {
-        if (u->parent == nullptr)
-            root = v;
-        else if (u == u->parent->left)
-            u->parent->left = v;
-        else
-            u->parent->right = v;
+        if (!u->parent) root = v;
+        else if (u == u->parent->left) u->parent->left = v;
+        else u->parent->right = v;
         v->parent = u->parent;
     }
 
@@ -108,88 +105,108 @@ private:
 
     void fixDelete(Node *x) {
         while (x != root && x->color == BLACK) {
-            if (x == x->parent->left) {
-                Node *w = x->parent->right;
-                if (w->color == RED) { // Case 1: Sibling is Red
+            if (x == x->parent->left) {  // If x is a left child
+                Node *w = x->parent->right; // Sibling of x
+
+                // Case 1: Sibling w is red
+                if (w->color == RED) {
                     w->color = BLACK;
                     x->parent->color = RED;
                     leftRotate(x->parent);
                     w = x->parent->right;
                 }
-                if (w->left->color == BLACK && w->right->color == BLACK) { // Case 2: Sibling is Black with Black children
+
+                // Case 2: Sibling w is black and both its children are black
+                if (w->left->color == BLACK && w->right->color == BLACK) {
                     w->color = RED;
-                    x = x->parent;
+                    x = x->parent;  // Move problem upwards
                 } else {
-                    if (w->right->color == BLACK) { // Case 3: Near child is Red
+                    // Case 3: Sibling w is black, and its left child is red, but right child is black
+                    if (w->right->color == BLACK) {
                         w->left->color = BLACK;
                         w->color = RED;
                         rightRotate(w);
                         w = x->parent->right;
                     }
-                    // Case 4: Far child is Red
+
+                    // Case 4: Sibling w is black, and its right child is red
                     w->color = x->parent->color;
                     x->parent->color = BLACK;
                     w->right->color = BLACK;
                     leftRotate(x->parent);
-                    x = root;
+                    x = root;  // Fix is complete
                 }
-            } else { // Mirror case
-                Node *w = x->parent->left;
+            } else {  // Mirror case: x is a right child
+                Node *w = x->parent->left; // Sibling of x
+
+                // Case 1: Sibling w is red
                 if (w->color == RED) {
                     w->color = BLACK;
                     x->parent->color = RED;
                     rightRotate(x->parent);
                     w = x->parent->left;
                 }
+
+                // Case 2: Sibling w is black and both children are black
                 if (w->right->color == BLACK && w->left->color == BLACK) {
                     w->color = RED;
-                    x = x->parent;
+                    x = x->parent;  // Move problem upwards
                 } else {
+                    // Case 3: Sibling w is black, and its right child is red, but left child is black
                     if (w->left->color == BLACK) {
                         w->right->color = BLACK;
                         w->color = RED;
                         leftRotate(w);
                         w = x->parent->left;
                     }
+
+                    // Case 4: Sibling w is black, and its left child is red
                     w->color = x->parent->color;
                     x->parent->color = BLACK;
                     w->left->color = BLACK;
                     rightRotate(x->parent);
-                    x = root;
+                    x = root;  // Fix is complete
                 }
             }
         }
-        x->color = BLACK;
+        x->color = BLACK;  // Ensure x is black to maintain balance
     }
 
     void deleteNode(Node *z) {
         Node *y = z, *x;
-        Color yOriginalColor = y->color;
-        if (z->left == NIL) {
+        Color yOriginalColor = y->color;  // Store the original color of y
+
+        if (z->left == NIL) {  // Case 1: z has no left child
             x = z->right;
             transplant(z, z->right);
-        } else if (z->right == NIL) {
+        } else if (z->right == NIL) {  // Case 2: z has no right child
             x = z->left;
             transplant(z, z->left);
-        } else {
-            y = minimum(z->right);
+        } else {  // Case 3: z has two children
+            y = minimum(z->right);  // Find successor
             yOriginalColor = y->color;
             x = y->right;
+
             if (y->parent == z)
-                x->parent = y;
+                x->parent = y;  // Maintain parent reference
             else {
                 transplant(y, y->right);
                 y->right = z->right;
                 y->right->parent = y;
             }
+
             transplant(z, y);
             y->left = z->left;
             y->left->parent = y;
-            y->color = z->color;
+            y->color = z->color;  // Copy color
+
         }
+
+        // If deleted node was black, fix potential violations
         if (yOriginalColor == BLACK)
             fixDelete(x);
     }
+
 
     void inorder(Node *node) {
         if (node == NIL) return;
